@@ -62,7 +62,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginLeft="28dp"
         android:ems="10"
-        android:hint="ex: coventrty"
+        android:hint="ex: coventry"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvPassword"
