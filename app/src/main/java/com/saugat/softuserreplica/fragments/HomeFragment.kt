@@ -42,18 +42,14 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
 
-//        newList = arguments?.getParcelableArrayList("list")!!
-//        val adapter2 = StudentAdapter(newList,this@HomeFragment)
-//        recyclerView2.layoutManager = LinearLayoutManager(activity)
-//        recyclerView2.adapter = adapter2
         return view
 
     }
 
     private fun loadStudents() {
-        StudentListData.get().list().add(Student(1,"Student 1","Ratopul",21,"Male"))
-        StudentListData.get().list().add(Student(2,"vERONICA doN didi","Maitidevi",22,"Female"))
-        StudentListData.get().list().add(Student(3,"Student 3","Baneswor",20,"Male"))
+        StudentListData.get().list().add(Student(1,"Will","Ratopul",21,"Male"))
+        StudentListData.get().list().add(Student(2,"Eleven","Maitidevi",22,"Female"))
+        StudentListData.get().list().add(Student(3,"Mike","Baneswor",20,"Male"))
     }
 
 }

@@ -22,6 +22,7 @@ class AddFragment : Fragment() {
     private lateinit var male: RadioButton
     private lateinit var female: RadioButton
     private lateinit var other: RadioButton
+    private lateinit var tvGender: TextView
     private val lstStudents = ArrayList<Student>()
     private var i = 4
     private var selectedGender = ""
@@ -47,6 +48,7 @@ class AddFragment : Fragment() {
         male = view.findViewById(R.id.male)
         female = view.findViewById(R.id.female)
         other = view.findViewById(R.id.other)
+        tvGender = view.findViewById(R.id.tvGender)
 
         //communicator = activity as Communicator
 
@@ -69,17 +71,49 @@ class AddFragment : Fragment() {
 
 
         btnSave.setOnClickListener {
-            StudentListData.get().list().add(Student(i++,etName.text.toString(),etAddress.text.toString(),etAge.text.toString().toInt(),selectedGender))
-            //communicator.passData(lstStudents)
-            val bundle = Bundle()
-            bundle.putString("listData","passedData")
-            HomeFragment().arguments = bundle
-            Toast.makeText(activity, "Student Added!!", Toast.LENGTH_LONG).show()
+            if (validate()) {
+                StudentListData.get().list().add(Student(i++, etName.text.toString(), etAddress.text.toString(), etAge.text.toString().toInt(), selectedGender))
+                //communicator.passData(lstStudents)
+                val bundle = Bundle()
+                bundle.putString("listData", "passedData")
+                HomeFragment().arguments = bundle
+                Toast.makeText(activity, "Student Added!!", Toast.LENGTH_LONG).show()
+                etName.setText("")
+                etAddress.setText("")
+                etAge.setText("")
+                radioGroup.isChe
+            }
 
         }
 
 
         return view
+    }
+
+    private fun validate(): Boolean {
+        return when {
+            radioGroup.checkedRadioButtonId == -1 ->{
+                tvGender.error = "Select Gender"
+                Toast.makeText(context, "Please Select Gender", Toast.LENGTH_SHORT).show()
+                false
+            }
+
+            etName.text.toString().isEmpty() -> {
+                etName.error = "Blank Name"
+                false
+            }
+            etAddress.text.toString().isEmpty() -> {
+                etAddress.error = "Blank Address"
+                false
+            }
+            etAge.text.toString().isEmpty() -> {
+                etAge.error = "Blank Age"
+                false
+            }
+            else -> true
+        }
+
+
     }
 
 }

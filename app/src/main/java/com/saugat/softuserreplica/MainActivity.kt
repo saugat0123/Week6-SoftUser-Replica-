@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import com.saugat.softuserreplica.fragments.HomeFragment
 import com.saugat.softuserreplica.model.Student
 import java.lang.Exception
@@ -24,13 +25,13 @@ class MainActivity : AppCompatActivity(), Communicator {
 
         btnLogin.setOnClickListener {
             try {
-                if (etUsername.text.toString() == "softwarica" && etPassword.text.toString()=="coventry")
-                {
-                    val intent = Intent(this,DashboardActivity::class.java)
-                    startActivity(intent)
-                }
-                else{
-                    Toast.makeText(this, "Invalid Username or Password!!", Toast.LENGTH_LONG).show()
+                if (validate()) {
+                    if (etUsername.text.toString() == "softwarica" && etPassword.text.toString() == "coventry") {
+                        val intent = Intent(this, DashboardActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Invalid Username or Password!!", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
             catch (ex:Exception){
@@ -38,6 +39,18 @@ class MainActivity : AppCompatActivity(), Communicator {
             }
         }
 
+    }
+
+    private fun validate(): Boolean {
+        if(etUsername.text.toString().isEmpty()){
+            etUsername.error = "Blank Username"
+            return false
+        }
+        else if(etPassword.text.toString().isEmpty()){
+            etPassword.error = "Blank Password"
+            return false
+        }
+        return true
     }
 
     override fun passData(lstStd: ArrayList<Student>) {
