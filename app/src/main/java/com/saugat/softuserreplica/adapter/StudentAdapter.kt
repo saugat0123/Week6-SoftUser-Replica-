@@ -4,8 +4,11 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.saugat.softuserreplica.R
 import com.saugat.softuserreplica.model.Student
 import de.hdodenhof.circleimageview.CircleImageView
@@ -16,6 +19,7 @@ class StudentAdapter(
 ): RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(view: View): RecyclerView.ViewHolder(view){
+        val btnDelete: ImageButton
         val imgProfile: CircleImageView
         val tvName: TextView
         val tvAge: TextView
@@ -23,6 +27,7 @@ class StudentAdapter(
         val tvGender: TextView
 
         init {
+            btnDelete = view.findViewById(R.id.btnDelete)
             imgProfile = view.findViewById(R.id.imgProfile)
             tvName = view.findViewById(R.id.tvName)
             tvAge = view.findViewById(R.id.tvAge)
@@ -42,6 +47,13 @@ class StudentAdapter(
         holder.tvAge.text = student.studentAge.toString()
         holder.tvAddress.text = student.studentAddress
         holder.tvGender.text = student.studentGender
+
+        holder.btnDelete.setOnClickListener{
+            lstStudents.removeAt(position)
+            notifyItemRemoved(position)
+            notifyDataSetChanged()
+            notifyItemRangeChanged(position,lstStudents.size)
+        }
 
 
     }
