@@ -81,7 +81,6 @@ class AddFragment : Fragment() {
                 etName.setText("")
                 etAddress.setText("")
                 etAge.setText("")
-                radioGroup.isChe
             }
 
         }
