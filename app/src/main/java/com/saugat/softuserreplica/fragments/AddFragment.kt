@@ -5,29 +5,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import com.saugat.softuserreplica.Communicator
 import com.saugat.softuserreplica.R
+import com.saugat.softuserreplica.StudentListData
+import com.saugat.softuserreplica.model.Student
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AddFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class AddFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var etName: EditText
+    private lateinit var etAge: EditText
+    private lateinit var etAddress: EditText
+    private lateinit var radioGroup: RadioGroup
+    private lateinit var btnSave: Button
+    private lateinit var male: RadioButton
+    private lateinit var female: RadioButton
+    private lateinit var other: RadioButton
+    private val lstStudents = ArrayList<Student>()
+    private var i = 4
+    private var selectedGender = ""
+    private lateinit var communicator: Communicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -35,26 +37,49 @@ class AddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_add, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment AddFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            AddFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        etName = view.findViewById(R.id.etName)
+        etAge = view.findViewById(R.id.etAge)
+        etAddress = view.findViewById(R.id.etAddress)
+        radioGroup = view.findViewById(R.id.radioGroup)
+        btnSave = view.findViewById(R.id.btnSave)
+        male = view.findViewById(R.id.male)
+        female = view.findViewById(R.id.female)
+        other = view.findViewById(R.id.other)
+
+        //communicator = activity as Communicator
+
+        radioGroup.setOnCheckedChangeListener { group, checkedId ->
+            selectedGender = when (checkedId) {
+                R.id.male -> {
+                    male.text.toString()
+                }
+                R.id.female -> {
+                    female.text.toString()
+                }
+                R.id.other -> {
+                    other.text.toString()
+                }
+                else -> {
+                    ""
                 }
             }
+        }
+
+
+        btnSave.setOnClickListener {
+            StudentListData.get().list().add(Student(i++,etName.text.toString(),etAddress.text.toString(),etAge.text.toString().toInt(),selectedGender))
+            //communicator.passData(lstStudents)
+            val bundle = Bundle()
+            bundle.putString("listData","passedData")
+            HomeFragment().arguments = bundle
+            Toast.makeText(activity, "Student Added!!", Toast.LENGTH_LONG).show()
+
+        }
+
+
+        return view
     }
+
 }

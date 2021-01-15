@@ -44,17 +44,17 @@
             android:layout_height="wrap_content">
 
             <RadioButton
-                android:id="@+id/rMale"
+                android:id="@+id/male"
                 android:text="Male"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/rFemale"
+                android:id="@+id/female"
                 android:text="Female"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:id="@+id/rOther"
+                android:id="@+id/other"
                 android:text="Other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

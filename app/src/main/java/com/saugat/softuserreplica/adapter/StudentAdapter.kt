@@ -7,13 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.saugat.softuserreplica.R
-import com.saugat.softuserreplica.fragments.HomeFragment
 import com.saugat.softuserreplica.model.Student
 import de.hdodenhof.circleimageview.CircleImageView
 
 class StudentAdapter(
         val lstStudents: ArrayList<Student>,
-        val context: HomeFragment
+        val context: Context
 ): RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
 
     class StudentViewHolder(view: View): RecyclerView.ViewHolder(view){

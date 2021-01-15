@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.saugat.softuserreplica.fragments.HomeFragment
+import com.saugat.softuserreplica.model.Student
 import java.lang.Exception
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
     private lateinit var etUsername: EditText
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
@@ -35,6 +37,15 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, ex.message, Toast.LENGTH_LONG).show()
             }
         }
+
+    }
+
+    override fun passData(lstStd: ArrayList<Student>) {
+        val bundle = Bundle()
+        bundle.putParcelableArrayList("list",lstStd)
+
+        val transaction = this.supportFragmentManager.beginTransaction()
+        HomeFragment().arguments = bundle
 
     }
 }
